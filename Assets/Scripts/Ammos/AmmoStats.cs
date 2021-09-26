@@ -9,4 +9,5 @@ public class AmmoStats : ScriptableObject
     public float damage;
     public float speed;
     public float lifeTime;
+    public int bounces;
 }

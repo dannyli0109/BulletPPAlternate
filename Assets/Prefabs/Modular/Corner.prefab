@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2170888767965813884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1518278246694580349, guid: 07c41cfb5ff2ef145927a6f8b885ccd9, type: 3}
+    - {fileID: 7601984642346511934, guid: 07c41cfb5ff2ef145927a6f8b885ccd9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 07c41cfb5ff2ef145927a6f8b885ccd9, type: 3}
 --- !u!4 &729797860840379108 stripped
 Transform:

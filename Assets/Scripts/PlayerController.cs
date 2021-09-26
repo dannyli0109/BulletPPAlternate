@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Quaternion rotation = Quaternion.Euler(0, angle + transform.localEulerAngles.y, 0);
-            Ammo ammo = Instantiate(bulletPrefab, gunPoint.position, rotation);
-            ammo.Init();
+            Bullet bullet = Instantiate(bulletPrefab, gunPoint.position, rotation);
+            bullet.Init();
 
         }
     }
