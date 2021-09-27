@@ -63,9 +63,12 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Ammos\AmmoStats.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\Inventory.cs" />
     <Compile Include="Assets\Scripts\Interfaces.cs" />
+    <Compile Include="Assets\Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Augments\StandardBullet.cs" />
+    <Compile Include="Assets\Scripts\Augments\Augment.cs" />
+    <Compile Include="Assets\Scripts\AugmentManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

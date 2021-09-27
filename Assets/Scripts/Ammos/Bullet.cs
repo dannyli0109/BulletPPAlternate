@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,11 @@ public class Bullet : MonoBehaviour, IDamageDealer, IBouncable
     float time;
     Vector3 velocity;
     int currentBounces;
+    Augment augment;
 
-    public void Init()
+    public void Init(Augment augment)
     {
+        this.augment = augment;
         velocity = transform.forward * stats.speed;
         time = 0;
         currentBounces = 0;
@@ -35,10 +38,12 @@ public class Bullet : MonoBehaviour, IDamageDealer, IBouncable
 
     private void OnCollisionEnter(Collision collision)
     {
+        for (int i = 0; i < augment.OnHit.Count; i++) augment.OnHit[i]?.Invoke(this);
         if (currentBounces < stats.bounces)
         {
             Bounce(collision);
             currentBounces++;
+            for (int i = 0; i < augment.OnBounce.Count; i++) augment.OnBounce[i]?.Invoke(this);
         }
         GameObject hitObject = collision.gameObject;
         IHittable hittable = hitObject.GetComponent<IHittable>();
@@ -51,6 +56,7 @@ public class Bullet : MonoBehaviour, IDamageDealer, IBouncable
         if (damagable != null)
         {
             damagable.OnDamage(this);
+            for (int i = 0; i < augment.OnDamage.Count; i++) augment.OnDamage[i]?.Invoke(this);
         }
 
     }

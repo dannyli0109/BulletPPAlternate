@@ -2,22 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     public Transform gunPoint;
     public Transform gunpointForAiming;
     public PlayerStats stats;
-    public Bullet bulletPrefab;
+    
     Animator animator;
     CharacterController characterController;
     float angle;
     Vector2 movement;
+    Inventory inventory;
+    int inventoryIndex;
+    float reloadTime;
+    bool reloading;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        inventory = new Inventory(stats.inventoryCapacity);
+        inventory.AddAugment(AugmentManager.GetAugments()[0]);
+        inventoryIndex = 0;
+        reloadTime = 0;
+        reloading = true;
     }
 
     private void Update()
@@ -25,18 +35,34 @@ public class PlayerController : MonoBehaviour
         HandleRotation();
         HandleMovement();
         HandleAnimation();
-        HandleShooting(0);
+        HandleShooting();
     }
 
-    private void HandleShooting(float angle)
+    private void HandleShooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (reloading)
         {
-            Quaternion rotation = Quaternion.Euler(0, angle + transform.localEulerAngles.y, 0);
-            Bullet bullet = Instantiate(bulletPrefab, gunPoint.position, rotation);
-            bullet.Init();
-
+            reloadTime += Time.deltaTime;
+            if (reloadTime >= stats.reloadTime)
+            {
+                reloadTime = 0;
+                reloading = false;
+                inventoryIndex = 0;
+            }
         }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                inventory[inventoryIndex++].Shoot(gunPoint);
+                if (inventoryIndex >= inventory.Count)
+                {
+                    reloading = true;
+                }
+            }
+        }
+
+
     }
 
     private void FixedUpdate()
